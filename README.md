@@ -1,3 +1,5 @@
+Nome: Julio Rodrigues Pereira
+
 # 🏛️ Pereira & Associados | Advocacia
 
 Landing Page institucional desenvolvida para o escritório fictício **Pereira & Associados**, especializada na prestação de serviços jurídicos.  
@@ -93,4 +95,4 @@ Grid com **3 cards**, detalhando:
 
 1. Clone o repositório:
 ```bash
-git clone 
+git clone https://github.com/JulioRodrigues12/landig-page-juridica.git
