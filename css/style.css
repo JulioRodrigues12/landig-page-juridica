@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500&display=swap');
+
+:root {
+  --bg-dark: #0f172a;
+  --bg-light: #f8fafc;
+  --gold: #c9a227;
+  --text-light: #e5e7eb;
+  --text-dark: #1e293b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+/* HERO */
+#hero {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 80px 10%;
+  gap: 40px;
+  align-items: center;
+}
+
+#hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+#hero p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  color: #d1d5db;
+}
+
+.btn {
+  display: inline-block;
+  padding: 14px 32px;
+  background-color: var(--gold);
+  color: #000;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-color: #e0b93d;
+}
+
+.hero-image img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* SERVIÇOS */
+#servicos {
+  padding: 80px 10%;
+  background-color: #fff;
+  text-align: center;
+}
+
+#servicos h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  margin-bottom: 50px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.card {
+  padding: 40px 25px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.card h3 {
+  color: var(--gold);
+  margin-bottom: 15px;
+  font-family: 'Playfair Display', serif;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* SOBRE */
+#sobre {
+  padding: 80px 15%;
+  background-color: var(--bg-light);
+  text-align: center;
+}
+
+#sobre h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.3rem;
+  margin-bottom: 30px;
+}
+
+#sobre p {
+  max-width: 800px;
+  margin: 0 auto 20px auto;
+  font-size: 1.05rem;
+}
+
+/* CONTATO */
+#contato {
+  padding: 80px 10%;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  text-align: center;
+}
+
+#contato h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  margin-bottom: 40px;
+}
+
+form {
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input, textarea {
+  padding: 14px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+textarea {
+  min-height: 120px;
+  resize: none;
+}
+
+button {
+  padding: 14px;
+  background-color: var(--gold);
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #e0b93d;
+}
+
+/* FOOTER */
+footer {
+  background-color: #020617;
+  color: #9ca3af;
+  text-align: center;
+  padding: 30px 10%;
+}
+
+footer .social {
+  margin-bottom: 10px;
+}
+
+footer .social a {
+  margin: 0 10px;
+  color: var(--gold);
+  text-decoration: none;
+}
