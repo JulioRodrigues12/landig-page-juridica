@@ -8,6 +8,14 @@
 </head>
 <body>
 
+  <!-- DARK MODE TOGGLE -->
+  <div class="theme-toggle">
+    <label>
+      <input type="checkbox" id="darkToggle">
+      <span> Modo Escuro</span>
+    </label>
+  </div>
+
   <!-- HERO -->
   <header id="hero">
     <div class="hero-content">
@@ -54,10 +62,10 @@
     </p>
   </section>
 
-  <!-- CONTATO -->
+
   <section id="contato">
     <h2>Entre em Contato</h2>
-    <form id="formContato">
+    <form id="formContato" novalidate>
       <input type="text" placeholder="Seu nome" required>
       <input type="email" placeholder="Seu e-mail" required>
       <textarea placeholder="Descreva brevemente seu caso" required></textarea>
@@ -65,7 +73,14 @@
     </form>
   </section>
 
-  <!-- FOOTER -->
+  <a href="https://wa.me/553298586277" class="whatsapp-float" target="_blank">
+    💬
+  </a>
+
+  
+  <div id="toast" class="toast"></div>
+
+ 
   <footer>
     <div class="social">
       <a href="#">LinkedIn</a>
