@@ -1,0 +1,41 @@
+name: Deploy to GitHub Pages
+
+on:
+
+  push:
+    branches: ["main", "master"]
+
+  workflow_dispatch:
+
+permissions:
+
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+  enviroment:
+    name: github-pages
+    url: ${{ steps.deployment.outputs.page_url}}
+
+  runs-on: ubutu-latest
+  steps:
+    - name: Checkout
+      users: actions/checkout@v4
+
+    - name: Setup Pages
+      uses: action/configure-pages@4
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@4
+      with:
+        path: '.'
+
+    - name: Deploy to Github Pages
+      id: deployment
+      uses: action/deploy-pages@v4  
