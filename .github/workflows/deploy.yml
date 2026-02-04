@@ -1,14 +1,12 @@
 name: Deploy to GitHub Pages
 
 on:
-
   push:
     branches: ["main", "master"]
 
   workflow_dispatch:
 
 permissions:
-
   contents: read
   pages: write
   id-token: write
@@ -19,23 +17,24 @@ concurrency:
 
 jobs:
   deploy:
-  enviroment:
-    name: github-pages
-    url: ${{ steps.deployment.outputs.page_url}}
+    runs-on: ubuntu-latest
 
-  runs-on: ubutu-latest
-  steps:
-    - name: Checkout
-      users: actions/checkout@v4
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
-    - name: Setup Pages
-      uses: action/configure-pages@4
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@4
-      with:
-        path: '.'
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
-    - name: Deploy to Github Pages
-      id: deployment
-      uses: action/deploy-pages@v4  
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
