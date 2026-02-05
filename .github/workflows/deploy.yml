@@ -29,6 +29,7 @@ jobs:
 
       - name: Explorando o Runner
         run: lsb_release -a
+        run: free -h
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
