@@ -2,7 +2,9 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ["main", "master"]
+    branches:
+      - main
+      - master
 
   workflow_dispatch:
 
@@ -12,7 +14,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: false
 
 jobs:
@@ -27,7 +29,7 @@ jobs:
       - name: Checkout do repositório
         uses: actions/checkout@v4
 
-      - name: Explorando o Runner
+      - name: Explorar o runner
         run: |
           lsb_release -a
           free -h
@@ -35,24 +37,31 @@ jobs:
       - name: Verificar se a pasta src existe
         run: |
           test -d src
-          echo "Pasta src encontrada com sucesso"
+          echo "Pasta src encontrada"
 
       - name: Verificar se o CSS está no caminho correto
         run: |
           test -f src/css/style.css
-          echo "Arquivo style.css encontrado em src/css"
+          echo "Arquivo style.css encontrado"
 
-      - name: Linting HTML (htmlhint)
-        uses: htmlhint/htmlhint-action@v2
-        with:
-          target_pattern: 'src/index.html'
+      - name: Instalar HTMLHint
+        run: |
+          npm install -g htmlhint
 
-      - name: Checar arquivos do projeto
+      - name: Linting HTML
+        run: |
+          htmlhint src/index.html
+
+      - name: Verificar footer com nome do aluno
+        run: |
+          grep -i "<footer>.*Julio Rodrigues Pereira.*</footer>" src/index.html
+
+      - name: Listar arquivos do projeto
         run: |
           ls -R src
-          echo "Estrutura do projeto validada"
+          echo "Estrutura validada"
 
-      - name: Setup Pages
+      - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
 
       - name: Upload do site
@@ -60,6 +69,6 @@ jobs:
         with:
           path: src
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy para GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
