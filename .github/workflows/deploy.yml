@@ -24,20 +24,41 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Checkout
+      - name: Checkout do repositório
         uses: actions/checkout@v4
 
       - name: Explorando o Runner
-        run: lsb_release -a && free -h
-        
+        run: |
+          lsb_release -a
+          free -h
+
+      - name: Verificar se a pasta src existe
+        run: |
+          test -d src
+          echo "Pasta src encontrada com sucesso"
+
+      - name: Verificar se o CSS está no caminho correto
+        run: |
+          test -f src/css/style.css
+          echo "Arquivo style.css encontrado em src/css"
+
+      - name: Linting HTML (htmlhint)
+        uses: htmlhint/htmlhint-action@v2
+        with:
+          target_pattern: 'src/index.html'
+
+      - name: Checar arquivos do projeto
+        run: |
+          ls -R src
+          echo "Estrutura do projeto validada"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload site
+      - name: Upload do site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: src
 
       - name: Deploy to GitHub Pages
         id: deployment
