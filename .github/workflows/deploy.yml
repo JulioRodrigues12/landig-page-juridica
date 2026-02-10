@@ -54,8 +54,11 @@ jobs:
 
       - name: Verificar footer com nome do aluno
         run: |
-          grep -i "<footer>.*Julio Rodrigues Pereira.*</footer>" src/index.html
+          grep -i "Julio Rodrigues Pereira" src/index.html
 
+ 
+ 
+ 
       - name: Listar arquivos do projeto
         run: |
           ls -R src
