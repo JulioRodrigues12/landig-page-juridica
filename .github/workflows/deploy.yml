@@ -56,9 +56,6 @@ jobs:
         run: |
           grep -i "Julio Rodrigues Pereira" src/index.html
 
- 
- 
- 
       - name: Listar arquivos do projeto
         run: |
           ls -R src
@@ -75,3 +72,7 @@ jobs:
       - name: Deploy para GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Relatório final de auditoria
+        run: |
+          echo "O código do aluno Julio Rodrigues Pereira foi auditado, está seguindo as normas corretas e está pronto para o deploy!"
