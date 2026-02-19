@@ -1,11 +1,10 @@
-name: Deploy to GitHub Pages
+name: Deploy GitHub Pages
 
 on:
   push:
     branches:
       - main
       - master
-
   workflow_dispatch:
 
 permissions:
@@ -26,53 +25,35 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Checkout do repositório
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Explorar o runner
-        run: |
-          lsb_release -a
-          free -h
+      - run: |
+          test -d src || exit 1
+          test -f src/index.html || exit 1
+          test -f src/css/style.css || echo "style.css não encontrado"
 
-      - name: Verificar se a pasta src existe
-        run: |
-          test -d src
-          echo "Pasta src encontrada"
-
-      - name: Verificar se o CSS está no caminho correto
-        run: |
-          test -f src/css/style.css
-          echo "Arquivo style.css encontrado"
-
-      - name: Instalar HTMLHint
-        run: |
-          npm install -g htmlhint
-
-      - name: Linting HTML
-        run: |
-          htmlhint src/index.html
-
-      - name: Verificar footer com nome do aluno
-        run: |
-          grep -i "Julio Rodrigues Pereira" src/index.html
-
-      - name: Listar arquivos do projeto
-        run: |
-          ls -R src
-          echo "Estrutura validada"
-
-      - name: Configurar GitHub Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload do site
-        uses: actions/upload-pages-artifact@v3
+      - uses: actions/setup-node@v4
         with:
-          path: src
+          node-version: 18
 
-      - name: Deploy para GitHub Pages
-        id: deployment
+      - run: npm install -g htmlhint
+
+      - run: htmlhint src/index.html
+
+      - run: |
+          grep -i "Julio Rodrigues Pereira" src/index.html || exit 1
+
+      - run: |
+          mkdir -p dist
+          cp -R src/* dist/
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: Relatório final de auditoria
-        run: |
-          echo "O código do aluno Julio Rodrigues Pereira foi auditado, está seguindo as normas corretas e está pronto para o deploy!"
+      - run: echo "Deploy concluído"
