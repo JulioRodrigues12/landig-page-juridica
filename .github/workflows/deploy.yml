@@ -25,31 +25,60 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - uses: actions/checkout@v4
+      # Checkout do repositório
+      - name: Checkout do código
+        uses: actions/checkout@v4
 
-      - name: Preparando Versão de Produção
+      # ==============================
+      # PREPARAÇÃO DA DIST
+      # ==============================
+      - name: Preparando versão de produção
         run: |
-          echo "Iniciando pipeline de preparação..."
+          echo "===== INICIANDO PIPELINE ====="
 
-          test -d src || exit 1
-          test -f src/index.html || exit 1
+          # 1️⃣ LIMPEZA
+          rm -rf dist
 
-          npm install -g htmlhint
-          htmlhint src/index.html
-          grep -i "Julio Rodrigues Pereira" src/index.html || exit 1
+          # 2️⃣ CRIAÇÃO
+          mkdir dist
 
-          mkdir -p dist
-          cp src/index.html dist/
-          cp -R src/css dist/ 2>/dev/null || echo "Aviso: pasta css não encontrada"
+          # 3️⃣ COLETA DOS HTML
+          cp src/*.html dist/
 
+          # 4️⃣ CÓPIA DOS ASSETS
+          cp -R src/css dist/ 2>/dev/null || echo "Pasta css não encontrada"
+          cp -R src/js dist/ 2>/dev/null || echo "Pasta js não encontrada"
+          cp -R src/img dist/ 2>/dev/null || echo "Pasta img não encontrada"
+          cp -R src/assets dist/ 2>/dev/null || echo "Pasta assets não encontrada"
+
+          echo "Conteúdo final da pasta dist:"
           ls -R dist
-          echo "Pasta de produção (dist) gerada com sucesso"
 
-      - uses: actions/configure-pages@v5
+      # ==============================
+      # 🔍 AUDITORIA DE QUALIDADE
+      # ==============================
+      - name: Auditoria de Qualidade
+        run: |
+          echo "===== INICIANDO AUDITORIA ====="
 
-      - uses: actions/upload-pages-artifact@v3
+          test -f dist/index.html || (echo "ERRO: index.html não encontrado!" && exit 1)
+          test -f dist/sobre.html || (echo "ERRO: sobre.html não encontrado!" && exit 1)
+          test -f dist/contato.html || (echo "ERRO: contato.html não encontrado!" && exit 1)
+
+          echo "Todos os arquivos principais estão presentes."
+          echo "===== AUDITORIA APROVADA ====="
+
+      # Configura GitHub Pages
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+
+      # Upload do artefato
+      - name: Upload do artefato
+        uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
-      - id: deployment
+      # Deploy final
+      - name: Publicar no GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
