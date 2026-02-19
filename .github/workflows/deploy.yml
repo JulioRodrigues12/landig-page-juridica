@@ -62,7 +62,7 @@ jobs:
           echo "===== INICIANDO AUDITORIA ====="
 
           test -f dist/index.html || (echo "ERRO: index.html não encontrado!" && exit 1)
-          test -f dist/sobre.html || (echo "ERRO: sobre.html não encontrado!" && exit 1)
+          test -f dist/quemsomos.html || (echo "ERRO: quemsomos.html não encontrado!" && exit 1)
           test -f dist/contato.html || (echo "ERRO: contato.html não encontrado!" && exit 1)
 
           echo "Todos os arquivos principais estão presentes."
