@@ -27,25 +27,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - run: |
+      - name: Preparando Versão de Produção
+        run: |
+          echo "Iniciando pipeline de preparação..."
+
           test -d src || exit 1
           test -f src/index.html || exit 1
-          test -f src/css/style.css || echo "style.css não encontrado"
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18
-
-      - run: npm install -g htmlhint
-
-      - run: htmlhint src/index.html
-
-      - run: |
+          npm install -g htmlhint
+          htmlhint src/index.html
           grep -i "Julio Rodrigues Pereira" src/index.html || exit 1
 
-      - run: |
           mkdir -p dist
-          cp -R src/* dist/
+          cp src/index.html dist/
+          cp -R src/css dist/ 2>/dev/null || echo "Aviso: pasta css não encontrada"
+
+          ls -R dist
+          echo "Pasta de produção (dist) gerada com sucesso"
 
       - uses: actions/configure-pages@v5
 
@@ -55,5 +53,3 @@ jobs:
 
       - id: deployment
         uses: actions/deploy-pages@v4
-
-      - run: echo "Deploy concluído"
