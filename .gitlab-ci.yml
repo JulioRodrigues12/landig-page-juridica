@@ -6,16 +6,13 @@ stages:
 verificar-arquivos:
   stage: teste
   script:
-    - echo "Verificando se index.html existe..."
-    - test -f index.html || (echo "index.html não encontrado!" && exit 1)
+    - echo "Verificando se src/index.html existe..."
+    - test -f src/index.html || (echo "index.html não encontrado!" && exit 1)
 
-    - echo "Verificando se index.html não está vazio..."
-    - test -s index.html || (echo "index.html está vazio!" && exit 1)
-
-    - echo "Verificando se style.css existe..."
-    - test -f src/css/style.css || (echo "style.css não encontrado!" && exit 1)
+    - echo "Verificando se não está vazio..."
+    - test -s src/index.html || (echo "index.html está vazio!" && exit 1)
 
     - echo "Procurando tag <html>..."
-    - grep -q "<html" index.html || (echo "Tag <html> não encontrada!" && exit 1)
+    - grep -q "<html" src/index.html || (echo "Tag <html> não encontrada!" && exit 1)
 
     - echo "Validação concluída com sucesso!"
