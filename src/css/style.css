@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500&display=swap");
 
 :root {
   --bg-dark: #0f172a;
@@ -19,20 +19,20 @@ html {
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: Inter, sans-serif;
   background-color: var(--bg-light);
   color: var(--text-dark);
   line-height: 1.6;
-  padding-top: 90px; /* compensação do menu fixo */
+  padding-top: 90px;
 }
 
-/* ================= MENU ================= */
+/* MENU */
 
 .menu {
   position: fixed;
   top: 0;
   width: 100%;
-  background: rgba(2, 6, 23, 0.95);
+  background: rgb(2 6 23 / 95%);
   backdrop-filter: blur(8px);
   display: flex;
   justify-content: space-between;
@@ -42,7 +42,7 @@ body {
 }
 
 .menu .logo {
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: 1.4rem;
   font-weight: 700;
   color: var(--gold);
@@ -60,7 +60,7 @@ body {
   color: var(--gold);
 }
 
-/* ================= HERO ================= */
+/* HERO */
 
 #hero {
   background-color: var(--bg-dark);
@@ -73,7 +73,7 @@ body {
 }
 
 #hero h1 {
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: 3rem;
   margin-bottom: 20px;
 }
@@ -89,7 +89,7 @@ body {
   border-radius: 8px;
 }
 
-/* ================= BOTÕES ================= */
+/* BOTÕES */
 
 .btn {
   display: inline-block;
@@ -106,7 +106,7 @@ body {
   background-color: #e0b93d;
 }
 
-/* ================= SERVIÇOS ================= */
+/* SERVIÇOS */
 
 #servicos {
   padding: 80px 10%;
@@ -115,7 +115,7 @@ body {
 }
 
 #servicos h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: 2.4rem;
   margin-bottom: 50px;
 }
@@ -136,15 +136,15 @@ body {
 .card h3 {
   color: var(--gold);
   margin-bottom: 15px;
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
 }
 
 .card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 25px rgb(0 0 0 / 8%);
 }
 
-/* ================= SOBRE ================= */
+/* SOBRE */
 
 #sobre {
   padding: 80px 15%;
@@ -153,18 +153,18 @@ body {
 }
 
 #sobre h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: 2.3rem;
   margin-bottom: 30px;
 }
 
 #sobre p {
   max-width: 800px;
-  margin: 0 auto 20px auto;
+  margin: 0 auto 20px;
   font-size: 1.05rem;
 }
 
-/* ================= CONTATO ================= */
+/* CONTATO */
 
 #contato {
   padding: 80px 10%;
@@ -174,7 +174,7 @@ body {
 }
 
 #contato h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: 2.2rem;
   margin-bottom: 40px;
 }
@@ -214,7 +214,7 @@ button:hover {
   background-color: #e0b93d;
 }
 
-/* ================= FOOTER ================= */
+/* FOOTER */
 
 footer {
   background-color: #020617;
@@ -233,7 +233,7 @@ footer .social a {
   text-decoration: none;
 }
 
-/* ================= DARK MODE ================= */
+/* DARK MODE */
 
 body.dark {
   --bg-light: #020617;
@@ -247,7 +247,7 @@ body.dark #sobre {
   background-color: #020617;
 }
 
-/* ================= THEME TOGGLE ================= */
+/* THEME TOGGLE */
 
 .theme-toggle {
   position: fixed;
@@ -258,10 +258,10 @@ body.dark #sobre {
   border-radius: 20px;
   font-size: 0.9rem;
   z-index: 999;
-  box-shadow: 0 4px 10px rgba(95, 71, 71, 0.1);
+  box-shadow: 0 4px 10px rgb(95 71 71 / 10%);
 }
 
-/* ================= WHATSAPP ================= */
+/* WHATSAPP */
 
 .whatsapp-float {
   position: fixed;
@@ -273,11 +273,11 @@ body.dark #sobre {
   padding: 14px 16px;
   border-radius: 50%;
   text-decoration: none;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+  box-shadow: 0 6px 15px rgb(0 0 0 / 25%);
   z-index: 999;
 }
 
-/* ================= TOAST ================= */
+/* TOAST */
 
 .toast {
   position: fixed;
@@ -299,13 +299,17 @@ body.dark #sobre {
   bottom: 50px;
 }
 
-.toast.success { background: #16a34a; }
-.toast.error { background: #dc2626; }
+.toast.success {
+  background: #16a34a;
+}
 
-/* ================= RESPONSIVO ================= */
+.toast.error {
+  background: #dc2626;
+}
+
+/* RESPONSIVO */
 
 @media (max-width: 900px) {
-
   #hero {
     grid-template-columns: 1fr;
     text-align: center;
@@ -319,9 +323,4 @@ body.dark #sobre {
   .menu .links a {
     margin: 0 10px;
   }
-
-}
-
-body {
-  background-color: #ffffff;
 }

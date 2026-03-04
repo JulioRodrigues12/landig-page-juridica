@@ -1,5 +1,5 @@
 node_modules
 erro.log
 *.env
-deploy.yml
-cofre.yml
+.github/workflows/deploy.yml
+.github/workflows/cofre.yml
