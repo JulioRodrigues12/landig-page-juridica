@@ -2,10 +2,10 @@ name: Esteira Completa
 
 on:
   push:
-    branches: [ main ] # Isso faz a esteira rodar toda vez que você der push na main
+    branches: [ main ]
 
 jobs:
-  # Job 1: Simulação de Linter (Verificação de erros)
+  # Job 1: Simulação de Linter
   test:
     runs-on: ubuntu-latest
     steps:
@@ -13,7 +13,7 @@ jobs:
       - name: Run Linter simulation
         run: echo "Executando Linter... Tudo limpo!"
 
-  # Job 2: Build (Preparação dos arquivos)
+  # Job 2: Build (Aqui estava o erro)
   build:
     needs: test
     runs-on: ubuntu-latest
@@ -22,16 +22,18 @@ jobs:
       - name: Create dist folder
         run: |
           mkdir -p dist
-          cp index.html dist/
-          # Se você tiver pastas como css/ e img/, copie-as também:
-          cp -r src/css dist/ 2>/dev/null || echo "Sem CSS para copiar"
+          # Ajustado para pegar os arquivos de dentro de src/
+          cp src/index.html dist/
+          cp -r src/css dist/ 2>/dev/null || echo "CSS não encontrado"
+          cp -r src/img dist/ 2>/dev/null || echo "Imagens não encontradas"
+          
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: site-build
           path: dist/
 
-  # Job 3: Deploy (Publicação)
+  # Job 3: Deploy
   deploy:
     needs: build
     runs-on: ubuntu-latest
