@@ -1,0 +1,50 @@
+name: Esteira Completa
+
+on:
+  push:
+    branches: [ main ] # Isso faz a esteira rodar toda vez que você der push na main
+
+jobs:
+  # Job 1: Simulação de Linter (Verificação de erros)
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Linter simulation
+        run: echo "Executando Linter... Tudo limpo!"
+
+  # Job 2: Build (Preparação dos arquivos)
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create dist folder
+        run: |
+          mkdir -p dist
+          cp index.html dist/
+          # Se você tiver pastas como css/ e img/, copie-as também:
+          cp -r src/css dist/ 2>/dev/null || echo "Sem CSS para copiar"
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-build
+          path: dist/
+
+  # Job 3: Deploy (Publicação)
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site-build
+          path: dist/
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
