@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 jobs:
-  # Job 1: Simulação de Linter
+  # Job 1: Test (Simulação de Linter)
   test:
     runs-on: ubuntu-latest
     steps:
@@ -13,25 +13,24 @@ jobs:
       - name: Run Linter simulation
         run: echo "Executando Linter... Tudo limpo!"
 
-  # Job 2: Build (Aqui estava o erro)
+  # Job 2: Build (CONFIGURADO PARA FALHAR)
   build:
     needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Create dist folder
+      - name: Create build folder
         run: |
-          mkdir -p dist
-          # Ajustado para pegar os arquivos de dentro de src/
-          cp src/index.html dist/
-          cp -r src/css dist/ 2>/dev/null || echo "CSS não encontrado"
-          cp -r src/img dist/ 2>/dev/null || echo "Imagens não encontradas"
+          mkdir -p build
+          cp src/*.html build/
+          cp -r src/css build/ 2>/dev/null || echo "Sem CSS"
+          cp -r src/img build/ 2>/dev/null || echo "Sem IMG"
           
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: site-build
-          path: dist/
+          path: dist/  # O erro acontece aqui: ele vai procurar 'dist', mas você criou 'build'
 
   # Job 3: Deploy
   deploy:
