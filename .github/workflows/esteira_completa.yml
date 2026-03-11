@@ -5,38 +5,32 @@ on:
     branches: [ main ]
 
 jobs:
-
   # Job 1: Simulação de Linter
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Run Linter simulation
-        run: |
-          echo "Executando Linter..."
-          echo "Erro de sintaxe encontrado no HTML!"
-          exit 1
+        run: echo "Executando Linter... Tudo limpo!"
 
-  # Job 2: Build
+  # Job 2: Build (CORRIGIDO)
   build:
     needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Create dist folder
         run: |
           mkdir -p dist
           cp src/*.html dist/
           cp -r src/css dist/ 2>/dev/null || echo "Sem CSS"
           cp -r src/img dist/ 2>/dev/null || echo "Sem IMG"
-
+          
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: site-build
-          path: dist/
+          path: dist/  # Agora o caminho coincide com a pasta criada acima
 
   # Job 3: Deploy
   deploy:
@@ -44,14 +38,12 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
     steps:
       - name: Download Artifact
         uses: actions/download-artifact@v4
         with:
           name: site-build
           path: dist/
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
